@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trendy_fashion/helper/Color.dart';
+import 'package:trendy_fashion/screens/loginScreen.dart';
 
 import '../widget/ButtonDesing.dart';
 
@@ -58,7 +59,11 @@ class _welcomeScreenState extends State<welcomeScreen> {
                   SizedBox(height: 50),
                   AppBtn(
                     title: 'Let\'s Get Started',
-                    onBtnSelected: () async {},
+                    onBtnSelected: () async {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => loginScreen(),
+                      ));
+                    },
                   ),
                   SizedBox(height: 20),
                   Row(
@@ -76,14 +81,24 @@ class _welcomeScreenState extends State<welcomeScreen> {
                         ),
                       ),
                       SizedBox(width: 5),
-                      Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontFamily: 'Rubik',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                          color: primaryBrown,
-                          letterSpacing: 1,
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: primaryBrown,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: primaryBrown,
+                            letterSpacing: 1,
+                          ),
                         ),
                       ),
                     ],
