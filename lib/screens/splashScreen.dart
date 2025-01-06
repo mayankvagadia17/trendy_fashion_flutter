@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendy_fashion/provider/LoginProvider.dart';
+import 'package:trendy_fashion/provider/SignupProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
 import 'package:trendy_fashion/screens/welcomScreen.dart';
 
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LoginProvider>(
             create: (context) => LoginProvider()),
+        ChangeNotifierProvider<SignupProvider>(
+            create: (context) => SignupProvider()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

@@ -1,50 +1,54 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:trendy_fashion/Response/LoginResponse.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
 import 'package:trendy_fashion/widget/api.dart';
-import 'package:trendy_fashion/widget/parameterString.dart';
-import 'package:trendy_fashion/widget/sharedPreferances.dart';
 
-import '../screens/loginScreen.dart';
+import '../Response/CreateProfileResponse.dart';
+import '../widget/parameterString.dart';
 import '../widget/setSnackbarScafold.dart';
+import '../widget/sharedPreferances.dart';
 
-class LoginProvider extends ChangeNotifier {
-  String? email, password;
+class SignupProvider extends ChangeNotifier {
+  String? email, password, name;
 
-  bool isSuccess = false;
+  bool isProfileCreated = false;
 
-  Future<void> getLoginUser(
+  Future<void> CreateUser(
     BuildContext context,
     GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey,
     Function updateNow,
   ) async {
-    final Map<String, String> data = {'email': email!, 'password': password!};
+    final Map<String, String> data = {
+      'name': name!,
+      'email': email!,
+      'country': 'india',
+      'password': password!
+    };
 
-    ApiBaseHelper().postAPICall(loginUri, data).then(
-      (data) async {
-        if (data.statusCode == 200) {
-          Map<String, dynamic> jsonResponse = jsonDecode(data.body);
-          Loginresponse res = Loginresponse.fromJson(jsonResponse);
+    ApiBaseHelper().postAPICall(createProfileUri, data).then(
+      (response) async {
+        if (response.statusCode == 200) {
+          Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+          Createprofileresponse res =
+              Createprofileresponse.fromJson(jsonResponse);
           print("url : $res");
           if (res.status == 1) {
-            isSuccess = true;
+            isProfileCreated = true;
             setPrefrence(accessToken, res.data!.token!);
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           } else {
-            isSuccess = false;
+            isProfileCreated = false;
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           }
           updateNow();
         } else {
-          isSuccess = false;
+          isProfileCreated = false;
           updateNow();
         }
       },
       onError: (error) {
-        isSuccess = false;
+        isProfileCreated = false;
         setSnackbarScafold(scaffoldMessengerKey, context, error.toString());
         updateNow();
       },

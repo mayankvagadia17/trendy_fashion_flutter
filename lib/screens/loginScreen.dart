@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,6 +10,7 @@ import '../helper/Color.dart';
 import '../provider/LoginProvider.dart';
 import '../widget/ButtonDesing.dart';
 import '../widget/networkAvailablity.dart';
+import '../widget/setSnackbarScafold.dart';
 import '../widget/validation.dart';
 
 class loginScreen extends StatefulWidget {
@@ -26,11 +29,25 @@ class _loginScreenState extends State<loginScreen> {
   bool isShowPass = true;
   FocusNode? passFocus, monoFocus = FocusNode();
   late LoginProvider provider;
+  bool _isAndroid = false;
 
   @override
   void initState() {
     super.initState();
     provider = Provider.of<LoginProvider>(context, listen: false);
+    _checkAppStatus();
+  }
+
+  Future<void> _checkAppStatus() async {
+    if (Platform.isAndroid) {
+      setState(() {
+        _isAndroid = true;
+      });
+    } else if (Platform.isIOS) {
+      setState(() {
+        _isAndroid = false;
+      });
+    }
   }
 
   setStateNow() {
@@ -93,7 +110,7 @@ class _loginScreenState extends State<loginScreen> {
                               style: TextStyle(
                                 fontSize: 13,
                                 fontFamily: 'Poppins',
-                                color: primaryBrown,
+                                color: black,
                               ),
                             ),
                           ),
@@ -243,29 +260,46 @@ class _loginScreenState extends State<loginScreen> {
                             ],
                           ),
                           SizedBox(height: 32),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CircularIconButton(
-                                icon: Icons.apple,
-                                onPressed: () {},
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              CircularIconButton(
-                                icon: Icons.g_mobiledata,
-                                onPressed: () {},
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              CircularIconButton(
-                                icon: Icons.facebook,
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
+                          _isAndroid
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CircularIconButton(
+                                      icon: Icons.g_mobiledata,
+                                      onPressed: () {},
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    CircularIconButton(
+                                      icon: Icons.facebook,
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    CircularIconButton(
+                                      icon: Icons.apple,
+                                      onPressed: () {},
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    CircularIconButton(
+                                      icon: Icons.g_mobiledata,
+                                      onPressed: () {},
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    CircularIconButton(
+                                      icon: Icons.facebook,
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
                           SizedBox(height: 32),
                           RichText(
                             text: TextSpan(
@@ -340,30 +374,13 @@ class _loginScreenState extends State<loginScreen> {
       Future.delayed(const Duration(seconds: 2)).then(
         (_) async {
           setState(
-            () {},
+            () {
+              setSnackbarScafold(
+                  scaffoldMessengerKey, context, "No internet connection");
+            },
           );
         },
       );
     }
   }
-}
-
-setSnackbarScafold(
-    GlobalKey<ScaffoldMessengerState> scafoldkey, contex, String msg) {
-  scafoldkey.currentState!.showSnackBar(
-    SnackBar(
-      content: Text(
-        msg,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: black,
-        ),
-      ),
-      duration: const Duration(
-        milliseconds: 3000,
-      ),
-      backgroundColor: lightWhite,
-      elevation: 1.0,
-    ),
-  );
 }
