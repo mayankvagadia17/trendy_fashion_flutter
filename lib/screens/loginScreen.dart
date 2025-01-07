@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
 import 'package:trendy_fashion/screens/signupScreen.dart';
+import 'package:trendy_fashion/screens/verifyEmailScreen.dart';
 import 'package:trendy_fashion/widget/CircularIconButton.dart';
 
 import '../helper/Color.dart';
@@ -58,7 +59,13 @@ class _loginScreenState extends State<loginScreen> {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => homescreen(),
         ));
-      } else {}
+      } else {
+        if (provider.Msg == "User is not verified") {
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => verfyEmailScreen(email: provider.email!),
+          ));
+        }
+      }
     });
   }
 

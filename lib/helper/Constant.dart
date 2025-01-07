@@ -2,4 +2,4 @@ const String appName = 'Trendy_Fashion';
 const int timeOut = 50;
 const double circularBorderRadius10 = 50;
 
-const String baseUrl = 'https://c2d6-2405-f600-d-8693-b4a0-92e1-89e6-c650.ngrok-free.app/';
+const String baseUrl = 'https://61b0-2405-f600-d-8693-4d8-9bfa-1998-57c6.ngrok-free.app/';

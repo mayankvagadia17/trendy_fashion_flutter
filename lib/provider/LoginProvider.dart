@@ -14,6 +14,7 @@ class LoginProvider extends ChangeNotifier {
   String? email, password;
 
   bool isSuccess = false;
+  String? Msg;
 
   Future<void> getLoginUser(
     BuildContext context,
@@ -30,20 +31,24 @@ class LoginProvider extends ChangeNotifier {
           print("url : $res");
           if (res.status == 1) {
             isSuccess = true;
+            Msg = res.message!;
             setPrefrence(accessToken, res.data!.token!);
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           } else {
             isSuccess = false;
+            Msg = res.message!;
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           }
           updateNow();
         } else {
           isSuccess = false;
+          Msg = "";
           updateNow();
         }
       },
       onError: (error) {
         isSuccess = false;
+        Msg = error.toString();
         setSnackbarScafold(scaffoldMessengerKey, context, error.toString());
         updateNow();
       },

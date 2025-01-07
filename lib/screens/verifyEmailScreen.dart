@@ -49,6 +49,12 @@ class _verfyEmailScreenState extends State<verfyEmailScreen> {
     });
   }
 
+  setStateResend() {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
@@ -394,25 +400,31 @@ class _verfyEmailScreenState extends State<verfyEmailScreen> {
                               fontFamily: 'Poppins',
                             ),
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: primaryBrown,
-                                    width: 1.0,
+                          GestureDetector(
+                            onTap: () {
+                              provider.ResendCode(context, widget.email,
+                                  scaffoldMessengerKey, setStateResend);
+                            },
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(
+                                      color: primaryBrown,
+                                      width: 1.0,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              child: Text(
-                                'Resend Code',
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: primaryBrown,
-                                  letterSpacing: 1,
+                                child: Text(
+                                  'Resend Code',
+                                  style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500,
+                                    color: primaryBrown,
+                                    letterSpacing: 1,
+                                  ),
                                 ),
                               ),
                             ),
