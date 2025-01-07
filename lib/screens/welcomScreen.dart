@@ -62,7 +62,7 @@ class _welcomeScreenState extends State<welcomeScreen> {
                     title: 'Let\'s Get Started',
                     onBtnSelected: () async {
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => signupScreen(),
+                        builder: (context) => signupScreen()
                       ));
                     },
                   ),

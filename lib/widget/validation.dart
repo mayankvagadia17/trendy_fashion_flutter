@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class StringValidation {
-// product name velidatation
   static String? validatePincode(String value, String? msg1) {
     if (value.isEmpty) {
       return msg1;
@@ -67,9 +66,9 @@ class StringValidation {
     }
   }
 
-  static String? validateField1(String value, String? msg) {
+  static String? validateField1(String value, BuildContext context) {
     if (value.isEmpty) {
-      return msg;
+      return "";
     } else {
       return null;
     }

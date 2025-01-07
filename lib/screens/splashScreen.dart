@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendy_fashion/provider/LoginProvider.dart';
 import 'package:trendy_fashion/provider/SignupProvider.dart';
+import 'package:trendy_fashion/provider/VerifyEmailProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
 import 'package:trendy_fashion/screens/welcomScreen.dart';
 
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginProvider()),
         ChangeNotifierProvider<SignupProvider>(
             create: (context) => SignupProvider()),
+        ChangeNotifierProvider<Verifyemailprovider>(
+            create: (context) => Verifyemailprovider()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

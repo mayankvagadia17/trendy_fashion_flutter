@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:trendy_fashion/screens/homeScreen.dart';
 import 'package:trendy_fashion/screens/signupScreen.dart';
 import 'package:trendy_fashion/widget/CircularIconButton.dart';
 
@@ -54,9 +55,9 @@ class _loginScreenState extends State<loginScreen> {
     setState(() {
       _isLoading = false;
       if (provider.isSuccess) {
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //   builder: (context) => home(),
-        // ));
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => homescreen(),
+        ));
       } else {}
     });
   }

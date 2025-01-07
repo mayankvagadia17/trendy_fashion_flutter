@@ -8,7 +8,6 @@ import 'package:trendy_fashion/widget/api.dart';
 import 'package:trendy_fashion/widget/parameterString.dart';
 import 'package:trendy_fashion/widget/sharedPreferances.dart';
 
-import '../screens/loginScreen.dart';
 import '../widget/setSnackbarScafold.dart';
 
 class LoginProvider extends ChangeNotifier {

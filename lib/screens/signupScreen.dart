@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendy_fashion/screens/loginScreen.dart';
+import 'package:trendy_fashion/screens/verifyEmailScreen.dart';
 
 import '../helper/Color.dart';
 import '../provider/SignupProvider.dart';
@@ -43,9 +44,9 @@ class _signupScreenState extends State<signupScreen> {
     setState(() {
       _isLoading = false;
       if (provider.isProfileCreated) {
-        // Navigator.of(context).pushReplacement(MaterialPageRoute(
-        //   builder: (context) => home(),
-        // ));
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => verfyEmailScreen(email: provider.email!),
+        ));
       } else {}
     });
   }
