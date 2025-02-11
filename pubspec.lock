@@ -81,6 +81,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.10"
+  dot_curved_bottom_nav:
+    dependency: "direct main"
+    description:
+      name: dot_curved_bottom_nav
+      sha256: d4a06b8aa3bd7820d538b2c685300f4eaec7d1c224c077deb7c8cdd68845aae9
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2"
   fake_async:
     dependency: transitive
     description:
@@ -110,14 +118,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_floating_bottom_bar:
-    dependency: "direct main"
-    description:
-      name: flutter_floating_bottom_bar
-      sha256: "5aff247b2015837bd121b6c694fb30107ed5677cd74e3088f6a5a18e369bc0ec"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.1+1"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -349,6 +349,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  smooth_page_indicator:
+    dependency: "direct main"
+    description:
+      name: smooth_page_indicator
+      sha256: "3b28b0c545fa67ed9e5997d9f9720d486f54c0c607e056a1094544e36934dff3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+3"
   source_span:
     dependency: transitive
     description:
