@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../helper/Color.dart';
 import '../widget/BannerItem.dart';
 
@@ -28,7 +27,6 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       "subtitle": "Special deals for\nour loyal customers"
     },
   ];
-  int _currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
