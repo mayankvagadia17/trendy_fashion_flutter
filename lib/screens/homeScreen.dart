@@ -1,7 +1,7 @@
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:trendy_fashion/screens/CartScreen.dart';
+import 'package:trendy_fashion/screens/cartScreen.dart';
 import 'package:trendy_fashion/screens/WishlistScreen.dart';
 import 'package:trendy_fashion/screens/dashBoardScreen.dart';
 import 'package:trendy_fashion/screens/profileScreen.dart';
@@ -57,23 +57,23 @@ class _homescreenState extends State<homescreen> {
           items: [
             Icon(
               Icons.home_outlined,
-              color: _currentPage == 0 ? primaryBrown : Colors.white,
+              color: _currentPage == 0 ? Colors.white : Colors.grey.shade700,
             ),
             Icon(
               Icons.shopping_bag_outlined,
-              color: _currentPage == 1 ? primaryBrown : Colors.white,
+              color: _currentPage == 1 ? Colors.white : Colors.grey.shade700,
             ),
             Icon(
               Icons.favorite_outline,
-              color: _currentPage == 2 ? primaryBrown : Colors.white,
+              color: _currentPage == 2 ? Colors.white : Colors.grey.shade700,
             ),
             Icon(
               Icons.chat_bubble_outline,
-              color: _currentPage == 3 ? primaryBrown : Colors.white,
+              color: _currentPage == 3 ? Colors.white : Colors.grey.shade700,
             ),
             Icon(
               Icons.account_circle_outlined,
-              color: _currentPage == 4 ? primaryBrown : Colors.white,
+              color: _currentPage == 4 ? Colors.white : Colors.grey.shade700,
             ),
           ],
         ),

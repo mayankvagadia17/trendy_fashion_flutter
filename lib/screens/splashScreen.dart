@@ -78,15 +78,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigationPage() async {
-    bool isFirstTime = await getPrefrenceBool(isLogin);
-    if (isFirstTime) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => homescreen(),
-      ));
-    } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => welcomeScreen(),
-      ));
-    }
+
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) => homescreen(),
+    ));
+
+    // bool isFirstTime = await getPrefrenceBool(isLogin);
+    // if (isFirstTime) {
+    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //     builder: (context) => homescreen(),
+    //   ));
+    // } else {
+    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //     builder: (context) => welcomeScreen(),
+    //   ));
+    // }
   }
 }
