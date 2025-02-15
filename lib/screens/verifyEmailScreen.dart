@@ -5,9 +5,9 @@ import 'package:trendy_fashion/provider/VerifyEmailProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
 
 import '../helper/Color.dart';
-import '../widget/ButtonDesing.dart';
-import '../widget/networkAvailablity.dart';
-import '../widget/setSnackbarScafold.dart';
+import '../widget/appWidget/networkAvailablity.dart';
+import '../widget/appWidget/setSnackbarScafold.dart';
+import '../widget/appWidget/ButtonDesing.dart';
 
 class verfyEmailScreen extends StatefulWidget {
   final String email;

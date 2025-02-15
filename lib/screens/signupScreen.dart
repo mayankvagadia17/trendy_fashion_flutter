@@ -8,11 +8,11 @@ import 'package:trendy_fashion/screens/verifyEmailScreen.dart';
 
 import '../helper/Color.dart';
 import '../provider/SignupProvider.dart';
-import '../widget/ButtonDesing.dart';
-import '../widget/CircularIconButton.dart';
-import '../widget/networkAvailablity.dart';
-import '../widget/setSnackbarScafold.dart';
-import '../widget/validation.dart';
+import '../widget/appWidget/networkAvailablity.dart';
+import '../widget/appWidget/setSnackbarScafold.dart';
+import '../widget/appWidget/validation.dart';
+import '../widget/appWidget/ButtonDesing.dart';
+import '../widget/appWidget/CircularIconButton.dart';
 
 class signupScreen extends StatefulWidget {
   const signupScreen({super.key});

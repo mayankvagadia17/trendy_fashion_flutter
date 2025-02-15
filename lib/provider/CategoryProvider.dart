@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trendy_fashion/Response/CategoryResponse.dart';
 import 'package:trendy_fashion/model/Category.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
-import 'package:trendy_fashion/widget/api.dart';
+import 'package:trendy_fashion/widget/appWidget/api.dart';
 
 class Categoryprovider extends ChangeNotifier {
   bool isSuccess = false;

@@ -4,8 +4,8 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 
-import '../widget/parameterString.dart';
-import '../widget/sharedPreferances.dart';
+import '../widget/appWidget/parameterString.dart';
+import '../widget/appWidget/sharedPreferances.dart';
 import 'Constant.dart';
 
 class ApiException implements Exception {

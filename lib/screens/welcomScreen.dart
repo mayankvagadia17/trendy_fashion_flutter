@@ -3,7 +3,7 @@ import 'package:trendy_fashion/helper/Color.dart';
 import 'package:trendy_fashion/screens/loginScreen.dart';
 import 'package:trendy_fashion/screens/signupScreen.dart';
 
-import '../widget/ButtonDesing.dart';
+import '../widget/appWidget//ButtonDesing.dart';
 
 class welcomeScreen extends StatefulWidget {
   const welcomeScreen({super.key});

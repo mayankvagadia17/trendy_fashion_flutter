@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trendy_fashion/Response/LoginResponse.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
-import 'package:trendy_fashion/widget/api.dart';
-import 'package:trendy_fashion/widget/parameterString.dart';
-import 'package:trendy_fashion/widget/sharedPreferances.dart';
+import 'package:trendy_fashion/widget/appWidget/api.dart';
+import 'package:trendy_fashion/widget/appWidget//parameterString.dart';
+import 'package:trendy_fashion/widget/appWidget//sharedPreferances.dart';
 
-import '../widget/setSnackbarScafold.dart';
+import '../widget/appWidget//setSnackbarScafold.dart';
 
 class LoginProvider extends ChangeNotifier {
   String? email, password;

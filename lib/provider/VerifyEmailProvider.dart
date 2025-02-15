@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:trendy_fashion/Response/ResendCodeResponse.dart';
 import 'package:trendy_fashion/Response/VerifyEmailResponse.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
-import 'package:trendy_fashion/widget/api.dart';
+import 'package:trendy_fashion/widget/appWidget/api.dart';
 
-import '../widget/setSnackbarScafold.dart';
+import '../widget/appWidget//setSnackbarScafold.dart';
 
 class Verifyemailprovider extends ChangeNotifier {
   String? code1, code2, code3, code4, code5, code6;

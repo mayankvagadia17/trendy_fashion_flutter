@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:trendy_fashion/Response/ProductResponse.dart';
-import 'package:trendy_fashion/widget/api.dart';
+import 'package:trendy_fashion/widget/appWidget/api.dart';
 
 import '../helper/ApiBaseHelper.dart';
 import '../model/Product.dart';

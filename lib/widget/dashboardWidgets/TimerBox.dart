@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../helper/Color.dart';
+import '../../helper/Color.dart';
 
 class Timerbox extends StatelessWidget {
   final String? title;

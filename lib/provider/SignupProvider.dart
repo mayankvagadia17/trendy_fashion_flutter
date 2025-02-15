@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
-import 'package:trendy_fashion/widget/api.dart';
+import 'package:trendy_fashion/widget/appWidget/api.dart';
 
 import '../Response/CreateProfileResponse.dart';
-import '../widget/parameterString.dart';
-import '../widget/setSnackbarScafold.dart';
-import '../widget/sharedPreferances.dart';
+import '../widget/appWidget//parameterString.dart';
+import '../widget/appWidget//setSnackbarScafold.dart';
+import '../widget/appWidget//sharedPreferances.dart';
 
 class SignupProvider extends ChangeNotifier {
   String? email, password, name;
