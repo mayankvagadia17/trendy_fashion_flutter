@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:trendy_fashion/provider/LoginProvider.dart';
+import 'package:trendy_fashion/provider/ProductProvider.dart';
 import 'package:trendy_fashion/provider/SignupProvider.dart';
 import 'package:trendy_fashion/provider/VerifyEmailProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
-import 'package:trendy_fashion/screens/welcomScreen.dart';
 
-import '../widget/parameterString.dart';
-import '../widget/sharedPreferances.dart';
+import '../provider/CategoryProvider.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
             create: (context) => SignupProvider()),
         ChangeNotifierProvider<Verifyemailprovider>(
             create: (context) => Verifyemailprovider()),
+        ChangeNotifierProvider<Categoryprovider>(
+            create: (context) => Categoryprovider()),
+        ChangeNotifierProvider<Productprovider>(
+            create: (context) => Productprovider()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

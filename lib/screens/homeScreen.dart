@@ -1,13 +1,11 @@
 import 'package:dot_curved_bottom_nav/dot_curved_bottom_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trendy_fashion/screens/cartScreen.dart';
 import 'package:trendy_fashion/screens/WishlistScreen.dart';
 import 'package:trendy_fashion/screens/dashBoardScreen.dart';
 import 'package:trendy_fashion/screens/profileScreen.dart';
 
 import '../helper/Color.dart';
-import '../widget/BannerItem.dart';
 
 class homescreen extends StatefulWidget {
   const homescreen({super.key});

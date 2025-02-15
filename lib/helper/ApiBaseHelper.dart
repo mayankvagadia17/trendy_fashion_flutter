@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 
+import '../widget/parameterString.dart';
+import '../widget/sharedPreferances.dart';
 import 'Constant.dart';
 
 class ApiException implements Exception {
@@ -18,23 +20,24 @@ class ApiException implements Exception {
 }
 
 class ApiBaseHelper {
-  Future<Response> postAPICall(Uri url, Map<String, String> parameter) async {
-    var responseJson;
-    print("parameter : $parameter");
-    print("url : $url");
+  Future<dynamic> postAPICall(Uri url, Map<String, String> parameter) async {
+    dynamic responseJson;
+    var token = "Bearer ${await getPrefrence(accessToken)}";
     try {
       final Uri uri = url.replace(queryParameters: parameter);
       final response = await post(
         uri,
         body: null,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
       ).timeout(
         const Duration(
           seconds: timeOut,
         ),
       );
-      print("response : ${response.body.toString()}");
 
-      print("API = $url,response : ${response.body.toString()}");
       responseJson = response;
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -45,20 +48,23 @@ class ApiBaseHelper {
   }
 
   Future<dynamic> getAPICall(Uri url) async {
-    var responseJson;
-    print("url : $url");
+    dynamic responseJson;
 
+
+    var token = "Bearer ${await getPrefrence(accessToken)}";
     try {
       final response = await get(
         url,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
       ).timeout(
         const Duration(
           seconds: timeOut,
         ),
       );
-      print("response : ${response.body.toString()}");
 
-      print("API = $url,response : ${response.body.toString()}");
       responseJson = _response(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');

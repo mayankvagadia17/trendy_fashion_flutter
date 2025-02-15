@@ -15,10 +15,10 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['name'] = this.name;
-    data['email'] = this.email;
-    data['country'] = this.country;
-    data['token'] = this.token;
+    data['name'] = name;
+    data['email'] = email;
+    data['country'] = country;
+    data['token'] = token;
     return data;
   }
 }
