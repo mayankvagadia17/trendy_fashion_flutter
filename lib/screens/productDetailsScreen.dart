@@ -10,6 +10,6 @@ class Productdetailsscreen extends StatefulWidget {
 class _ProductdetailsscreenState extends State<Productdetailsscreen> {
   @override
   Widget build(BuildContext context) {
-    return
+    return Text('Product Details');
   }
 }

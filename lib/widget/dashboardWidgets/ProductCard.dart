@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../helper/Color.dart';
-import '../model/Product.dart';
+import '../../helper/Color.dart';
+import '../../model/Product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
