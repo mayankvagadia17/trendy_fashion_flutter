@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:trendy_fashion/helper/Color.dart';
 
-import '../../helper/Color.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});
@@ -15,7 +14,7 @@ class HeaderSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -58,7 +57,7 @@ class HeaderSection extends StatelessWidget {
             child: Container(
               height: 35,
               width: 35,
-              child: Icon(
+              child: const Icon(
                 Icons.notifications,
                 color: Colors.black,
                 size: 20,

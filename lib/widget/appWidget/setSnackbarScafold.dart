@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../helper/Color.dart';
+import 'package:trendy_fashion/helper/Color.dart';
 
 void setSnackbarScafold(
     GlobalKey<ScaffoldMessengerState> scaffoldKey,

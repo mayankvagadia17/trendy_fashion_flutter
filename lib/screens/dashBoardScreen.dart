@@ -87,7 +87,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                 ],
               )
             : SingleChildScrollView(
-                padding: EdgeInsets.fromLTRB(0.0, 70.0, 0.0, 0.0),
+                padding: EdgeInsets.fromLTRB(0.0, 50.0, 0.0, 0.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
