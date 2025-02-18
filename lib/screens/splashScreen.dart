@@ -7,6 +7,9 @@ import 'package:trendy_fashion/provider/ProductProvider.dart';
 import 'package:trendy_fashion/provider/SignupProvider.dart';
 import 'package:trendy_fashion/provider/VerifyEmailProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
+import 'package:trendy_fashion/screens/welcomScreen.dart';
+import 'package:trendy_fashion/widget/appWidget/parameterString.dart';
+import 'package:trendy_fashion/widget/appWidget/sharedPreferances.dart';
 
 import '../provider/CategoryProvider.dart';
 
@@ -82,20 +85,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigationPage() async {
-
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => homescreen(),
-    ));
-
-    // bool isFirstTime = await getPrefrenceBool(isLogin);
-    // if (isFirstTime) {
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //     builder: (context) => homescreen(),
-    //   ));
-    // } else {
-    //   Navigator.of(context).pushReplacement(MaterialPageRoute(
-    //     builder: (context) => welcomeScreen(),
-    //   ));
-    // }
+    bool isFirstTime = await getPrefrenceBool(isLogin);
+    if (isFirstTime) {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => homescreen(),
+      ));
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (context) => welcomeScreen(),
+      ));
+    }
   }
 }
