@@ -6,6 +6,7 @@ import 'package:trendy_fashion/provider/LoginProvider.dart';
 import 'package:trendy_fashion/provider/ProductProvider.dart';
 import 'package:trendy_fashion/provider/SignupProvider.dart';
 import 'package:trendy_fashion/provider/VerifyEmailProvider.dart';
+import 'package:trendy_fashion/provider/WishlistProvider.dart';
 import 'package:trendy_fashion/screens/homeScreen.dart';
 import 'package:trendy_fashion/screens/welcomScreen.dart';
 import 'package:trendy_fashion/widget/appWidget/parameterString.dart';
@@ -36,6 +37,8 @@ class MyApp extends StatelessWidget {
             create: (context) => Categoryprovider()),
         ChangeNotifierProvider<Productprovider>(
             create: (context) => Productprovider()),
+        ChangeNotifierProvider<WishlistProvider>(
+            create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
         home: SplashScreen(),

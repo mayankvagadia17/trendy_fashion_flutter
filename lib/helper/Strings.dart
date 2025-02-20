@@ -5,5 +5,6 @@ class Strings {
     "Popular",
     "Man",
     "Woman",
+    "Both",
   ];
 }

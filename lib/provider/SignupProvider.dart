@@ -36,6 +36,8 @@ class SignupProvider extends ChangeNotifier {
           if (res.status == 1) {
             isProfileCreated = true;
             setPrefrence(accessToken, res.data!.token!);
+            setPrefrenceBool(isLogin, true);
+            setPrefrenceInt(userId, res.data!.userId!);
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           } else {
             isProfileCreated = false;

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trendy_fashion/helper/Strings.dart';
+import 'package:trendy_fashion/model/Product.dart';
 import 'package:trendy_fashion/provider/CategoryProvider.dart';
 import 'package:trendy_fashion/provider/ProductProvider.dart';
+import 'package:trendy_fashion/provider/WishlistProvider.dart';
+import 'package:trendy_fashion/screens/productDetailsScreen.dart';
 import '../helper/Color.dart';
 import '../widget/dashboardWidgets/BannerItem.dart';
 import '../widget/dashboardWidgets/TimerBox.dart';
@@ -19,6 +23,7 @@ class Dashboardscreen extends StatefulWidget {
 
 bool _isCategoryLoading = true;
 bool _isProductLoading = true;
+bool _isWishlistloading = false;
 
 class _DashboardscreenState extends State<Dashboardscreen> {
   final PageController _pageController = PageController();
@@ -38,18 +43,27 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   ];
   late Categoryprovider categoryprovider;
   late Productprovider productprovider;
+  late WishlistProvider wishlistProvider;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  String? SelectedCategry, SelectedFilter;
 
   @override
   void initState() {
     super.initState();
     categoryprovider = Provider.of<Categoryprovider>(context, listen: false);
     productprovider = Provider.of<Productprovider>(context, listen: false);
+    wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
     categoryprovider.getCategory(
         context, scaffoldMessengerKey, updateCategoryNow);
     productprovider.getAllProducts(
         context, scaffoldMessengerKey, updateProductNow);
+    wishlistProvider.getAllWishlist(
+        context, scaffoldMessengerKey, updateWishlistNow);
+    productprovider.getSelectedCategory(
+        context, scaffoldMessengerKey, getselectedCategoryUpdateNow);
+    productprovider.getSelectedFilter(
+        context, scaffoldMessengerKey, getselectedFilterUpdateNow);
   }
 
   updateCategoryNow() {
@@ -64,19 +78,45 @@ class _DashboardscreenState extends State<Dashboardscreen> {
     });
   }
 
+  updateWishlistNow() {
+    setState(() {
+      _isWishlistloading = false;
+    });
+  }
+
+  getselectedCategoryUpdateNow() {
+    setState(() {
+      SelectedCategry = productprovider.SelectedCategory;
+    });
+  }
+
+  getselectedFilterUpdateNow() {
+    setState(() {
+      SelectedFilter = productprovider.SelectedFilter;
+    });
+  }
+
+  selectedCategoryUpdateNow() {
+    setState(() {});
+  }
+
+  setFilterupdateNow() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: _isCategoryLoading
+        body: _isCategoryLoading || _isProductLoading || _isWishlistloading
             ? Stack(
                 children: [
                   Opacity(
                     opacity: 0.3,
-                    child:
-                        ModalBarrier(dismissible: false, color: Colors.black),
+                    child: ModalBarrier(
+                        dismissible: false, color: Colors.transparent),
                   ),
                   Center(
                     child: CircularProgressIndicator(),
@@ -251,65 +291,169 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                       ),
                     ),
                     SizedBox(height: 16),
-                    categoryprovider.categoryList.isNotEmpty
-                        ? SizedBox(
-                            height: 100,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: categoryprovider.categoryList.length,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 16.0),
-                                  child: Column(
-                                    children: [
-                                      Center(
-                                        child: ClipOval(
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            color:
-                                                categorylistviewbackgroundColor,
-                                            child: Center(
-                                              child: SvgPicture.network(
+                    !categoryprovider.isCategoryLoading
+                        ? categoryprovider.categoryList.isNotEmpty
+                            ? SizedBox(
+                                height: 100,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      categoryprovider.categoryList.length,
+                                  itemBuilder: (context, index) {
+                                    if (SelectedCategry ==
+                                        categoryprovider
+                                            .categoryList[index].categoryName) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            SelectedCategry = categoryprovider
+                                                .categoryList[index]
+                                                .categoryName!;
+                                            productprovider.setSelectedCategory(
+                                                context,
+                                                scaffoldMessengerKey,
+                                                selectedCategoryUpdateNow,
                                                 categoryprovider
                                                     .categoryList[index]
-                                                    .categoryIcon!,
-                                                placeholderBuilder: (context) =>
-                                                    CircularProgressIndicator(
-                                                        color:
-                                                            categorylistviewbackgroundColor,
-                                                        backgroundColor:
-                                                            primaryBrown),
-                                                height: 25,
-                                                width: 25,
-                                                colorFilter: ColorFilter.mode(
-                                                    primaryBrown,
-                                                    BlendMode.srcIn),
+                                                    .categoryName!);
+                                            _isProductLoading = true;
+                                            productprovider.getAllProducts(
+                                                context,
+                                                scaffoldMessengerKey,
+                                                updateProductNow);
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 16.0),
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: ClipOval(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    color: primaryBrown,
+                                                    child: Center(
+                                                      child: SvgPicture.network(
+                                                        categoryprovider
+                                                            .categoryList[index]
+                                                            .categoryIcon!,
+                                                        placeholderBuilder: (context) =>
+                                                            CircularProgressIndicator(
+                                                                color:
+                                                                    primaryBrown,
+                                                                backgroundColor:
+                                                                    categorylistviewbackgroundColor),
+                                                        height: 25,
+                                                        width: 25,
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                                categorylistviewbackgroundColor,
+                                                                BlendMode
+                                                                    .srcIn),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
-                                            ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                categoryprovider
+                                                    .categoryList[index]
+                                                    .categoryName!,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: primaryBrown,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: 'Poppins',
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        categoryprovider
-                                            .categoryList[index].categoryName!,
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          color: primaryBrown,
-                                          fontWeight: FontWeight.w500,
-                                          fontFamily: 'Poppins',
+                                      );
+                                    } else {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            SelectedCategry = categoryprovider
+                                                .categoryList[index]
+                                                .categoryName!;
+                                            productprovider.setSelectedCategory(
+                                                context,
+                                                scaffoldMessengerKey,
+                                                selectedCategoryUpdateNow,
+                                                categoryprovider
+                                                    .categoryList[index]
+                                                    .categoryName!);
+                                            _isProductLoading = true;
+                                            productprovider.getAllProducts(
+                                                context,
+                                                scaffoldMessengerKey,
+                                                updateProductNow);
+                                          });
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 16.0),
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: ClipOval(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    color:
+                                                        categorylistviewbackgroundColor,
+                                                    child: Center(
+                                                      child: SvgPicture.network(
+                                                        categoryprovider
+                                                            .categoryList[index]
+                                                            .categoryIcon!,
+                                                        placeholderBuilder: (context) =>
+                                                            CircularProgressIndicator(
+                                                                color:
+                                                                    categorylistviewbackgroundColor,
+                                                                backgroundColor:
+                                                                    primaryBrown),
+                                                        height: 25,
+                                                        width: 25,
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                                primaryBrown,
+                                                                BlendMode
+                                                                    .srcIn),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                categoryprovider
+                                                    .categoryList[index]
+                                                    .categoryName!,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: primaryBrown,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: 'Poppins',
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          )
+                                      );
+                                    }
+                                  },
+                                ),
+                              )
+                            : Text("No Category")
                         : const Center(child: CircularProgressIndicator()),
                     SizedBox(height: 16),
                     Padding(
@@ -360,59 +504,137 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                           scrollDirection: Axis.horizontal,
                           itemCount: Strings().Filter.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 4.0),
-                              child: Container(
-                                height: 30,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                        30,
+                            if (SelectedFilter == Strings().Filter[index]) {
+                              return InkWell(
+                                onTap: () {
+                                  SelectedFilter = Strings().Filter[index];
+                                  productprovider.setSelectedFilter(
+                                      context,
+                                      scaffoldMessengerKey,
+                                      setFilterupdateNow,
+                                      Strings().Filter[index]);
+                                  _isProductLoading = true;
+                                  productprovider.getAllProducts(
+                                      context,
+                                      scaffoldMessengerKey,
+                                      updateProductNow);
+                                },
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  child: Container(
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                          30,
+                                        ),
                                       ),
+                                      border: Border.all(color: primaryBrown),
+                                      color: primaryBrown
                                     ),
-                                    border: Border.all(color: primaryBrown)),
-                                child: Center(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 24.0),
-                                    child: Text(
-                                      Strings().Filter[index],
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
+                                    child: Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 24.0),
+                                        child: Text(
+                                          Strings().Filter[index],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
+                              );
+                            } else {
+                              return InkWell(
+                                onTap: () {
+                                  SelectedFilter = Strings().Filter[index];
+                                  productprovider.setSelectedFilter(
+                                      context,
+                                      scaffoldMessengerKey,
+                                      setFilterupdateNow,
+                                      Strings().Filter[index]);
+                                  _isProductLoading = true;
+                                  productprovider.getAllProducts(
+                                      context,
+                                      scaffoldMessengerKey,
+                                      updateProductNow);
+                                },
+                                child: Padding(
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                  child: Container(
+                                    height: 30,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            30,
+                                          ),
+                                        ),
+                                        border:
+                                            Border.all(color: primaryBrown)),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 24.0),
+                                        child: Text(
+                                          Strings().Filter[index],
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: 'Poppins',
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }
                           },
                         ),
                       ),
                     ),
-                    productprovider.productList.isNotEmpty
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.0),
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemCount: productprovider.productList.length,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 0,
-                                mainAxisSpacing: 0,
-                                childAspectRatio: 0.80,
-                              ),
-                              itemBuilder: (context, index) {
-                                return ProductCard(
-                                    product:
-                                        productprovider.productList[index]);
-                              },
-                            ),
-                          )
+                    !productprovider.isProductLoading
+                        ? productprovider.productList.isNotEmpty
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: productprovider.productList.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 0,
+                                    childAspectRatio: 0.80,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    return ProductCard(
+                                      product:
+                                          productprovider.productList[index],
+                                      wishlist: wishlistProvider.wishlistList,
+                                      onItemTapped: onItemTapped,
+                                      onFavoriteIconTapped:
+                                          onFavoriteIconTapped,
+                                    );
+                                  },
+                                ),
+                              )
+                            : Column(
+                                children: [
+                                  SizedBox(height: 16),
+                                  Text("No products available."),
+                                ],
+                              )
                         : Container(
                             height: 100,
                             child: Center(
@@ -432,5 +654,19 @@ class _DashboardscreenState extends State<Dashboardscreen> {
               ),
       ),
     );
+  }
+
+  void onItemTapped(Product item) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Productdetailsscreen(),
+    ));
+  }
+
+  void onFavoriteIconTapped(Product item) {
+    setState(() {
+      _isWishlistloading = true;
+    });
+    wishlistProvider.addWishlist(
+        context, scaffoldMessengerKey, updateWishlistNow, item.productId!);
   }
 }

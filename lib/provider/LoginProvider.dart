@@ -34,6 +34,7 @@ class LoginProvider extends ChangeNotifier {
             Msg = res.message!;
             setPrefrence(accessToken, res.data!.token!);
             setPrefrenceBool(isLogin, true);
+            setPrefrenceInt(userId, res.data!.userId!);
             setSnackbarScafold(scaffoldMessengerKey, context, res.message!);
           } else {
             isSuccess = false;

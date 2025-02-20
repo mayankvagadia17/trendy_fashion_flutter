@@ -14,3 +14,7 @@ final Uri getAllProduct = Uri.parse("${baseUrl}api/product/getAllProduct");
 
 // Category Api
 final Uri getAllCategory = Uri.parse("${baseUrl}api/category/getAllCategory");
+
+//  Wishlist Api
+final Uri addToWishlist = Uri.parse("${baseUrl}api/wishlist/addwishlist");
+final Uri getAllWishlistApi = Uri.parse("${baseUrl}api/wishlist/getAllwishlist");

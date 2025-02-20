@@ -47,6 +47,33 @@ class ApiBaseHelper {
     return responseJson;
   }
 
+  Future<dynamic> postApiCallFormated(Uri url, Map<String, String> parameter) async {
+    dynamic responseJson;
+    var token = "Bearer ${await getPrefrence(accessToken)}";
+    try {
+      final Uri uri = url.replace(queryParameters: parameter);
+      final response = await post(
+        uri,
+        body: null,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+      ).timeout(
+        const Duration(
+          seconds: timeOut,
+        ),
+      );
+
+      responseJson = _response(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    } on TimeoutException {
+      throw FetchDataException('Something went wrong, try again later');
+    }
+    return responseJson;
+  }
+
   Future<dynamic> getAPICall(Uri url) async {
     dynamic responseJson;
 
@@ -55,6 +82,32 @@ class ApiBaseHelper {
     try {
       final response = await get(
         url,
+        headers: {
+          'Authorization': token,
+          'Content-Type': 'application/json',
+        },
+      ).timeout(
+        const Duration(
+          seconds: timeOut,
+        ),
+      );
+
+      responseJson = _response(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    } on TimeoutException {
+      throw FetchDataException('Something went wrong, try again later');
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> getAPICallWithParam(Uri url,Map<String, String> parameter) async {
+    dynamic responseJson;
+    var token = "Bearer ${await getPrefrence(accessToken)}";
+    final Uri uri = url.replace(queryParameters: parameter);
+    try {
+      final response = await get(
+        uri,
         headers: {
           'Authorization': token,
           'Content-Type': 'application/json',

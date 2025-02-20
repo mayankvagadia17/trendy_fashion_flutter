@@ -21,3 +21,13 @@ Future<String> getPrefrence(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString(key) ?? "";
 }
+
+setPrefrenceInt(String key, int value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  await prefs.setInt(key, value);
+}
+
+Future<int> getPrefrenceInt(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getInt(key) ?? -1;
+}

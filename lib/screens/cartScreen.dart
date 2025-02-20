@@ -75,50 +75,50 @@ class _CartscreenState extends State<Cartscreen> {
         ),
         body: Stack(
           children: [
-            Expanded(
-              child: ListView.builder(
-                itemCount: cartItems.length,
-                itemBuilder: (context, index) {
-                  return Dismissible(
-                    key: Key(cartItems[index]['title']),
-                    direction: DismissDirection.endToStart,
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Icon(Icons.delete, color: Colors.white),
-                    ),
-                    onDismissed: (direction) {
-                      removeItem(index);
-                    },
-                    child: Card(
-                      margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-                      child: ListTile(
-                        leading: Image.network(cartItems[index]['image'],
-                            width: 60, height: 60, fit: BoxFit.cover),
-                        title: Text(cartItems[index]['title']),
-                        subtitle: Text("Size: ${cartItems[index]['size']}"),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.remove_circle_outline),
-                              onPressed: () => updateQuantity(index, -1),
-                            ),
-                            Text(cartItems[index]['quantity'].toString(),
-                                style: TextStyle(fontSize: 16)),
-                            IconButton(
-                              icon: Icon(Icons.add_circle_outline),
-                              onPressed: () => updateQuantity(index, 1),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     itemCount: cartItems.length,
+            //     itemBuilder: (context, index) {
+            //       return Dismissible(
+            //         key: Key(cartItems[index]['title']),
+            //         direction: DismissDirection.endToStart,
+            //         background: Container(
+            //           color: Colors.red,
+            //           alignment: Alignment.centerRight,
+            //           padding: EdgeInsets.symmetric(horizontal: 20),
+            //           child: Icon(Icons.delete, color: Colors.white),
+            //         ),
+            //         onDismissed: (direction) {
+            //           removeItem(index);
+            //         },
+            //         child: Card(
+            //           margin: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+            //           child: ListTile(
+            //             leading: Image.network(cartItems[index]['image'],
+            //                 width: 60, height: 60, fit: BoxFit.cover),
+            //             title: Text(cartItems[index]['title']),
+            //             subtitle: Text("Size: ${cartItems[index]['size']}"),
+            //             trailing: Row(
+            //               mainAxisSize: MainAxisSize.min,
+            //               children: [
+            //                 IconButton(
+            //                   icon: Icon(Icons.remove_circle_outline),
+            //                   onPressed: () => updateQuantity(index, -1),
+            //                 ),
+            //                 Text(cartItems[index]['quantity'].toString(),
+            //                     style: TextStyle(fontSize: 16)),
+            //                 IconButton(
+            //                   icon: Icon(Icons.add_circle_outline),
+            //                   onPressed: () => updateQuantity(index, 1),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+            // ),
             Positioned(
               bottom: 0,
               left: 0,

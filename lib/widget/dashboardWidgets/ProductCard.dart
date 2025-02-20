@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:trendy_fashion/model/Wishlist.dart';
 
 import '../../helper/Color.dart';
 import '../../model/Product.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
+  final List<Wishlist> wishlist;
+  final Function(Product) onItemTapped;
+  final Function(Product) onFavoriteIconTapped;
 
-  ProductCard({required this.product});
+  ProductCard(
+      {required this.product,
+      required this.wishlist,
+      required this.onItemTapped,
+      required this.onFavoriteIconTapped});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       highlightColor: Colors.transparent,
       splashColor: Colors.transparent,
-      onTap: () {
-
-      },
+      onTap: () => onItemTapped(product),
       child: Card(
         color: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -33,19 +39,40 @@ class ProductCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                  top: 8,
-                  right: 8,
-                  child: CircleAvatar(
-                    maxRadius: 15,
-                    backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.favorite_border,
-                      color: Colors.grey,
-                      size: 20,
+                if (wishlist.any((item) => item.productId == product.productId))
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: InkWell(
+                      onTap: () => onFavoriteIconTapped(product),
+                      child: CircleAvatar(
+                        maxRadius: 15,
+                        backgroundColor: lightBrownbgLike,
+                        child: Icon(
+                          Icons.favorite_outlined,
+                          color: primaryBrown,
+                          size: 20,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
+                  )
+                else
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: InkWell(
+                      onTap: () => onFavoriteIconTapped(product),
+                      child: CircleAvatar(
+                        maxRadius: 15,
+                        backgroundColor: lightBrownbgLike,
+                        child: Icon(
+                          Icons.favorite_border,
+                          color: primaryBrown,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  )
               ],
             ),
             Padding(

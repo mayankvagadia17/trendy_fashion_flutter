@@ -27,31 +27,39 @@ class _homescreenState extends State<homescreen> {
     Profilescreen(),
   ];
 
+  int selectedScreenIndex = 0;
+  int fixedIndicatorIndex = 0;
+
+  void onItemTapped(int index) {
+    setState(() {
+      selectedScreenIndex = index; // Change only the screen
+      // fixedIndicatorIndex is NOT updated, so the indicator stays fixed
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldMessenger(
       key: scaffoldMessengerKey,
       child: Scaffold(
-        extendBody: true,
+        extendBody: false,
         backgroundColor: Colors.white,
         body: IndexedStack(
           index: _currentPage,
           children: _screens,
         ),
         bottomNavigationBar: DotCurvedBottomNav(
+          selectedIndex: fixedIndicatorIndex,
           scrollController: _scrollController,
           hideOnScroll: false,
           indicatorColor: primaryBrown,
           backgroundColor: bottomNavigationColor,
-          animationDuration: const Duration(milliseconds: 300),
-          animationCurve: Curves.ease,
-          selectedIndex: _currentPage,
           indicatorSize: 5,
           borderRadius: 10,
           height: 60,
           onTap: (index) {
             if (index == 1) {
-              setState(() => index == _currentPage);
+              // setState(() => index == _currentPage);
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => Cartscreen(),
               ));
