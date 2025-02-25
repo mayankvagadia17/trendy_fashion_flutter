@@ -4,9 +4,7 @@ import 'package:trendy_fashion/model/Category.dart';
 import 'package:trendy_fashion/helper/ApiBaseHelper.dart';
 import 'package:trendy_fashion/widget/appWidget/api.dart';
 
-import '../widget/appWidget/parameterString.dart';
 import '../widget/appWidget/setSnackbarScafold.dart';
-import '../widget/appWidget/sharedPreferances.dart';
 
 class Categoryprovider extends ChangeNotifier {
   bool isSuccess = false;

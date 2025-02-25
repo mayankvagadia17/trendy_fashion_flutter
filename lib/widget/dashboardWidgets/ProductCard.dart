@@ -83,14 +83,22 @@ class ProductCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        product.name!,
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: 'Poppins',
+                      Flexible(
+                        child: Text(
+                          product.name!,
+                          softWrap: false,  // Prevents wrapping
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: 'Poppins',
+                          ),
                         ),
+                      ),
+                      SizedBox(
+                        width: 5,
                       ),
                       Row(
                         children: [
@@ -101,6 +109,7 @@ class ProductCard extends StatelessWidget {
                           ),
                           Text(
                             product.rating.toString(),
+                            softWrap: true,
                             style: TextStyle(
                               fontSize: 14,
                               color: primaryBrown,
@@ -111,6 +120,9 @@ class ProductCard extends StatelessWidget {
                         ],
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Text(
                     "\$${product.price!.toStringAsFixed(2)}",

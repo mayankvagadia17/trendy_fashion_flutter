@@ -6,7 +6,7 @@ class Product {
   String? description;
   bool? isPremium;
   String? category;
-  int? rating;
+  num? rating;
   int? rating_count;
   String? gender;
   String? createdAt;
@@ -15,7 +15,7 @@ class Product {
   List<String>? images;
   int? productId;
   int? discount;
-  int? finalPrice;
+  num? finalPrice;
 
   Product(
       {this.stock,

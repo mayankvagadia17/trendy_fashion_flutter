@@ -9,7 +9,6 @@ class Cartscreen extends StatefulWidget {
   State<Cartscreen> createState() => _CartscreenState();
 }
 
-bool _isBagLoading = false;
 
 class _CartscreenState extends State<Cartscreen> {
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =

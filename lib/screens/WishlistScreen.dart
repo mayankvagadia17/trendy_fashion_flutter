@@ -15,7 +15,6 @@ class Wishlistscreen extends StatefulWidget {
 }
 
 bool _isWishlistloading = true;
-bool _isCategoryLoading = true;
 
 class _WishlistscreenState extends State<Wishlistscreen> {
   late WishlistProvider wishlistProvider;
@@ -36,7 +35,6 @@ class _WishlistscreenState extends State<Wishlistscreen> {
 
   updateCategoryNow() {
     setState(() {
-      _isCategoryLoading = false;
     });
   }
 

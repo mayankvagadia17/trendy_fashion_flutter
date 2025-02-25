@@ -110,7 +110,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
       key: scaffoldMessengerKey,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: _isCategoryLoading || _isProductLoading || _isWishlistloading
+        body: _isCategoryLoading || _isProductLoading
             ? Stack(
                 children: [
                   Opacity(
@@ -514,10 +514,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                       setFilterupdateNow,
                                       Strings().Filter[index]);
                                   _isProductLoading = true;
-                                  productprovider.getAllProducts(
-                                      context,
-                                      scaffoldMessengerKey,
-                                      updateProductNow);
+                                  productprovider.getAllProducts(context,
+                                      scaffoldMessengerKey, updateProductNow);
                                 },
                                 child: Padding(
                                   padding:
@@ -525,14 +523,13 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                   child: Container(
                                     height: 30,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          30,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(
+                                            30,
+                                          ),
                                         ),
-                                      ),
-                                      border: Border.all(color: primaryBrown),
-                                      color: primaryBrown
-                                    ),
+                                        border: Border.all(color: primaryBrown),
+                                        color: primaryBrown),
                                     child: Center(
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(
@@ -561,10 +558,8 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                       setFilterupdateNow,
                                       Strings().Filter[index]);
                                   _isProductLoading = true;
-                                  productprovider.getAllProducts(
-                                      context,
-                                      scaffoldMessengerKey,
-                                      updateProductNow);
+                                  productprovider.getAllProducts(context,
+                                      scaffoldMessengerKey, updateProductNow);
                                 },
                                 child: Padding(
                                   padding:
@@ -615,7 +610,7 @@ class _DashboardscreenState extends State<Dashboardscreen> {
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 0,
                                     mainAxisSpacing: 0,
-                                    childAspectRatio: 0.80,
+                                    childAspectRatio: 0.7,
                                   ),
                                   itemBuilder: (context, index) {
                                     return ProductCard(
@@ -657,9 +652,9 @@ class _DashboardscreenState extends State<Dashboardscreen> {
   }
 
   void onItemTapped(Product item) {
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Productdetailsscreen(),
-    ));
+    Navigator.of(context)
+        .push(new MaterialPageRoute(builder: (context) => Productdetailsscreen(product: item)))
+        .then((value) => setState(() => {}));
   }
 
   void onFavoriteIconTapped(Product item) {
