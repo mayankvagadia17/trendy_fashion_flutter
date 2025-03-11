@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:trendy_fashion/widget/wishlistWidgets/WishlistCard.dart';
 
 import '../helper/Color.dart';
+import '../model/Product.dart';
 import '../provider/CategoryProvider.dart';
+import '../provider/ProductProvider.dart';
 import '../provider/WishlistProvider.dart';
 
 class Wishlistscreen extends StatefulWidget {
@@ -15,9 +18,11 @@ class Wishlistscreen extends StatefulWidget {
 }
 
 bool _isWishlistloading = true;
+bool _isProductLoading = true;
 
 class _WishlistscreenState extends State<Wishlistscreen> {
   late WishlistProvider wishlistProvider;
+  late Productprovider productprovider;
   late Categoryprovider categoryprovider;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
@@ -25,8 +30,11 @@ class _WishlistscreenState extends State<Wishlistscreen> {
   @override
   void initState() {
     super.initState();
+    productprovider = Provider.of<Productprovider>(context, listen: false);
     categoryprovider = Provider.of<Categoryprovider>(context, listen: false);
     wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
+    productprovider.getAllProducts(
+        context, scaffoldMessengerKey, updateProductNow);
     wishlistProvider.getAllWishlist(
         context, scaffoldMessengerKey, updateWishlistNow);
     categoryprovider.getCategory(
@@ -34,13 +42,18 @@ class _WishlistscreenState extends State<Wishlistscreen> {
   }
 
   updateCategoryNow() {
-    setState(() {
-    });
+    setState(() {});
   }
 
   updateWishlistNow() {
     setState(() {
       _isWishlistloading = false;
+    });
+  }
+
+  updateProductNow() {
+    setState(() {
+      _isProductLoading = false;
     });
   }
 
@@ -152,8 +165,28 @@ class _WishlistscreenState extends State<Wishlistscreen> {
                     ),
                     !wishlistProvider.isWishlistLoading
                         ? wishlistProvider.wishlistList.isNotEmpty
-                            ? Text(
-                                "Loaded",
+                            ? Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                child: GridView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      wishlistProvider.wishlistedProduct.length,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 0,
+                                    mainAxisSpacing: 0,
+                                    childAspectRatio: 0.7,
+                                  ),
+                                  itemBuilder: (context, index) {
+                                    return Wishlistcard(
+                                      product: wishlistProvider
+                                          .wishlistedProduct[index],
+                                      onItemTapped: onItemTapped,
+                                    );
+                                  },
+                                ),
                               )
                             : Text(
                                 "No Product in wishlist",
@@ -164,5 +197,11 @@ class _WishlistscreenState extends State<Wishlistscreen> {
               ),
       ),
     );
+  }
+
+  void onItemTapped(Product item) {
+    // Navigator.of(context)
+    //     .push(new MaterialPageRoute(builder: (context) => Productdetailsscreen(product: item)))
+    //     .then((value) => setState(() => {}));
   }
 }

@@ -103,7 +103,7 @@ class ApiBaseHelper {
 
   Future<dynamic> getAPICallWithParam(Uri url,Map<String, String> parameter) async {
     dynamic responseJson;
-    var token = "Bearer ${await getPrefrence(accessToken)}";
+      var token = "Bearer ${await getPrefrence(accessToken)}";
     final Uri uri = url.replace(queryParameters: parameter);
     try {
       final response = await get(

@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:trendy_fashion/model/Wishlist.dart';
 
 import '../../helper/Color.dart';
 import '../../model/Product.dart';
 
-class ProductCard extends StatelessWidget {
+class Wishlistcard extends StatelessWidget {
   final Product product;
-  final List<Wishlist> wishlist;
   final Function(Product) onItemTapped;
-  final Function(Product) onFavoriteIconTapped;
 
-  ProductCard(
-      {required this.product,
-      required this.wishlist,
-      required this.onItemTapped,
-      required this.onFavoriteIconTapped});
+  Wishlistcard({required this.product, required this.onItemTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -39,40 +32,22 @@ class ProductCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                if (wishlist.any((item) => item.productId == product.productId))
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: InkWell(
-                      onTap: () => onFavoriteIconTapped(product),
-                      child: CircleAvatar(
-                        maxRadius: 15,
-                        backgroundColor: lightBrownbgLike,
-                        child: Icon(
-                          Icons.favorite_outlined,
-                          color: primaryBrown,
-                          size: 20,
-                        ),
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: InkWell(
+                    onTap: () {},
+                    child: CircleAvatar(
+                      maxRadius: 15,
+                      backgroundColor: lightBrownbgLike,
+                      child: Icon(
+                        Icons.favorite_outlined,
+                        color: primaryBrown,
+                        size: 20,
                       ),
                     ),
-                  )
-                else
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: InkWell(
-                      onTap: () => onFavoriteIconTapped(product),
-                      child: CircleAvatar(
-                        maxRadius: 15,
-                        backgroundColor: lightBrownbgLike,
-                        child: Icon(
-                          Icons.favorite_border,
-                          color: primaryBrown,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                  )
+                  ),
+                )
               ],
             ),
             Padding(
@@ -86,7 +61,7 @@ class ProductCard extends StatelessWidget {
                       Flexible(
                         child: Text(
                           product.name!,
-                          softWrap: false,  // Prevents wrapping
+                          softWrap: false, // Prevents wrapping
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
