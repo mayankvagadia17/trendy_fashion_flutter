@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:trendy_fashion/screens/productDetailsScreen.dart';
 import 'package:trendy_fashion/widget/wishlistWidgets/WishlistCard.dart';
 
 import '../helper/Color.dart';
@@ -26,6 +27,8 @@ class _WishlistscreenState extends State<Wishlistscreen> {
   late Categoryprovider categoryprovider;
   final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
+  String? SelectedCategry = "All";
+  bool _isMounted = true;
 
   @override
   void initState() {
@@ -35,26 +38,38 @@ class _WishlistscreenState extends State<Wishlistscreen> {
     wishlistProvider = Provider.of<WishlistProvider>(context, listen: false);
     productprovider.getAllProducts(
         context, scaffoldMessengerKey, updateProductNow);
-    wishlistProvider.getAllWishlist(
+    wishlistProvider.getWishlistedProduct(
         context, scaffoldMessengerKey, updateWishlistNow);
     categoryprovider.getCategory(
         context, scaffoldMessengerKey, updateCategoryNow);
   }
 
   updateCategoryNow() {
-    setState(() {});
+    if (_isMounted) {
+      setState(() {});
+    }
   }
 
   updateWishlistNow() {
-    setState(() {
-      _isWishlistloading = false;
-    });
+    if (_isMounted) {
+      setState(() {
+        _isWishlistloading = false;
+      });
+    }
   }
 
   updateProductNow() {
-    setState(() {
-      _isProductLoading = false;
-    });
+    if (_isMounted) {
+      setState(() {
+        _isProductLoading = false;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
   }
 
   @override
@@ -105,63 +120,143 @@ class _WishlistscreenState extends State<Wishlistscreen> {
                                   itemCount:
                                       categoryprovider.categoryList.length,
                                   itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0, horizontal: 16.0),
-                                      child: Column(
-                                        children: [
-                                          Center(
-                                            child: ClipOval(
-                                              child: Container(
-                                                height: 50,
-                                                width: 50,
-                                                color:
-                                                    categorylistviewbackgroundColor,
-                                                child: Center(
-                                                  child: SvgPicture.network(
-                                                    categoryprovider
-                                                        .categoryList[index]
-                                                        .categoryIcon!,
-                                                    placeholderBuilder: (context) =>
-                                                        CircularProgressIndicator(
-                                                            color:
+                                    if (SelectedCategry ==
+                                        categoryprovider
+                                            .categoryList[index].categoryName) {
+                                      return InkWell(
+                                        onTap: () {
+                                          if (_isMounted) {
+                                            setState(() {
+                                              SelectedCategry = categoryprovider
+                                                  .categoryList[index]
+                                                  .categoryName;
+                                            });
+                                          }
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 16.0),
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: ClipOval(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    color: primaryBrown,
+                                                    child: Center(
+                                                      child: SvgPicture.network(
+                                                        categoryprovider
+                                                            .categoryList[index]
+                                                            .categoryIcon!,
+                                                        placeholderBuilder: (context) =>
+                                                            CircularProgressIndicator(
+                                                                color:
+                                                                    primaryBrown,
+                                                                backgroundColor:
+                                                                    categorylistviewbackgroundColor),
+                                                        height: 25,
+                                                        width: 25,
+                                                        colorFilter:
+                                                            ColorFilter.mode(
                                                                 categorylistviewbackgroundColor,
-                                                            backgroundColor:
-                                                                primaryBrown),
-                                                    height: 25,
-                                                    width: 25,
-                                                    colorFilter:
-                                                        ColorFilter.mode(
-                                                            primaryBrown,
-                                                            BlendMode.srcIn),
+                                                                BlendMode
+                                                                    .srcIn),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                categoryprovider
+                                                    .categoryList[index]
+                                                    .categoryName!,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: primaryBrown,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: 'Poppins',
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          SizedBox(
-                                            height: 10,
+                                        ),
+                                      );
+                                    } else {
+                                      return InkWell(
+                                        onTap: () {
+                                          if (_isMounted) {
+                                            setState(() {
+                                              SelectedCategry = categoryprovider
+                                                  .categoryList[index]
+                                                  .categoryName;
+                                            });
+                                          }
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 8.0, horizontal: 16.0),
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: ClipOval(
+                                                  child: Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    color:
+                                                        categorylistviewbackgroundColor,
+                                                    child: Center(
+                                                      child: SvgPicture.network(
+                                                        categoryprovider
+                                                            .categoryList[index]
+                                                            .categoryIcon!,
+                                                        placeholderBuilder: (context) =>
+                                                            CircularProgressIndicator(
+                                                                color:
+                                                                    categorylistviewbackgroundColor,
+                                                                backgroundColor:
+                                                                    primaryBrown),
+                                                        height: 25,
+                                                        width: 25,
+                                                        colorFilter:
+                                                            ColorFilter.mode(
+                                                                primaryBrown,
+                                                                BlendMode
+                                                                    .srcIn),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                categoryprovider
+                                                    .categoryList[index]
+                                                    .categoryName!,
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: primaryBrown,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontFamily: 'Poppins',
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            categoryprovider.categoryList[index]
-                                                .categoryName!,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: primaryBrown,
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: 'Poppins',
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
+                                        ),
+                                      );
+                                    }
                                   },
                                 ),
                               )
                             : Text("No Category")
                         : const Center(child: CircularProgressIndicator()),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     !wishlistProvider.isWishlistLoading
                         ? wishlistProvider.wishlistList.isNotEmpty
@@ -169,6 +264,7 @@ class _WishlistscreenState extends State<Wishlistscreen> {
                                 padding: EdgeInsets.symmetric(horizontal: 16.0),
                                 child: GridView.builder(
                                   shrinkWrap: true,
+                                  padding: EdgeInsets.zero,
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount:
                                       wishlistProvider.wishlistedProduct.length,
@@ -177,7 +273,7 @@ class _WishlistscreenState extends State<Wishlistscreen> {
                                     crossAxisCount: 2,
                                     crossAxisSpacing: 0,
                                     mainAxisSpacing: 0,
-                                    childAspectRatio: 0.7,
+                                    childAspectRatio: 0.85,
                                   ),
                                   itemBuilder: (context, index) {
                                     return Wishlistcard(
@@ -200,8 +296,9 @@ class _WishlistscreenState extends State<Wishlistscreen> {
   }
 
   void onItemTapped(Product item) {
-    // Navigator.of(context)
-    //     .push(new MaterialPageRoute(builder: (context) => Productdetailsscreen(product: item)))
-    //     .then((value) => setState(() => {}));
+    Navigator.of(context)
+        .push(new MaterialPageRoute(
+            builder: (context) => Productdetailsscreen(product: item)))
+        .then((value) => setState(() => {}));
   }
 }

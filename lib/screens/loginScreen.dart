@@ -354,9 +354,9 @@ class _loginScreenState extends State<loginScreen> {
 
   void validateAndSubmit() async {
     if (validateAndSave()) {
-      // setState(() {
-      //   _isLoading = true;
-      // });
+      setState(() {
+        _isLoading = true;
+      });
       checkNetwork();
     }
   }

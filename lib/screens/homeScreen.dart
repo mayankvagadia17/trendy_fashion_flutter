@@ -19,21 +19,29 @@ class _homescreenState extends State<homescreen> {
       GlobalKey<ScaffoldMessengerState>();
   int _currentPage = 0;
   final ScrollController _scrollController = ScrollController();
-  final List<Widget> _screens = [
-    Dashboardscreen(),
-    Cartscreen(),
-    Wishlistscreen(),
-    Dashboardscreen(),
-    Profilescreen(),
-  ];
 
+  Widget _getScreen(int index) {
+    switch (index) {
+      case 0:
+        return Dashboardscreen();
+      case 1:
+        return Cartscreen();
+      case 2:
+        return Wishlistscreen();
+      case 3:
+        return Dashboardscreen(); // Your second instance of Dashboard
+      case 4:
+        return Profilescreen();
+      default:
+        return Dashboardscreen();
+    }
+  }
   int selectedScreenIndex = 0;
   int fixedIndicatorIndex = 0;
 
   void onItemTapped(int index) {
     setState(() {
-      selectedScreenIndex = index; // Change only the screen
-      // fixedIndicatorIndex is NOT updated, so the indicator stays fixed
+      selectedScreenIndex = index;
     });
   }
 
@@ -44,10 +52,7 @@ class _homescreenState extends State<homescreen> {
       child: Scaffold(
         extendBody: false,
         backgroundColor: Colors.white,
-        body: IndexedStack(
-          index: _currentPage,
-          children: _screens,
-        ),
+        body: _getScreen(_currentPage),
         bottomNavigationBar: DotCurvedBottomNav(
           selectedIndex: fixedIndicatorIndex,
           scrollController: _scrollController,

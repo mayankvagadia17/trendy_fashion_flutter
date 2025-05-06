@@ -88,9 +88,9 @@ class ProductCard extends StatelessWidget {
                           product.name!,
                           softWrap: false,  // Prevents wrapping
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                          maxLines: 1,
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 12,
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontFamily: 'Poppins',

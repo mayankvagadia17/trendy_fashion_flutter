@@ -120,8 +120,10 @@ class WishlistProvider extends ChangeNotifier {
         List<Product> productList = res.data!.cast<Product>();
         if (wishlistList.isNotEmpty) {
           for (int i = 0; i < productList.length; i++) {
-            if (wishlistList.contains(productList[i].productId)) {
-              wishlistedProduct.add(productList[i]);
+            for(int j = 0 ; j < wishlistList.length; j++){
+              if(productList[i].productId == wishlistList[j].productId){
+                wishlistedProduct.add(productList[i]);
+              }
             }
           }
         }
