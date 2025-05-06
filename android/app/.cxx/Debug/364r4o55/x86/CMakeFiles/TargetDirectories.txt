@@ -1,0 +1,2 @@
+D:/github/trendy_fashion_flutter/android/app/.cxx/Debug/364r4o55/x86/CMakeFiles/edit_cache.dir
+D:/github/trendy_fashion_flutter/android/app/.cxx/Debug/364r4o55/x86/CMakeFiles/rebuild_cache.dir
